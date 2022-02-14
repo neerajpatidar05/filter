@@ -1,0 +1,8 @@
+$sidebar-bg-color: #e6e9f7;
+$sidebar-text-color: #7b7c7f;
+$highlight-color: #596de6;
+
+.pro-icon-wrapper{
+    background-color: transparent !important;
+}
+@import '../../node_modules/react-pro-sidebar/dist/scss/styles.scss';

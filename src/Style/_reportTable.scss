@@ -1,0 +1,166 @@
+.reportTable{
+    display: flex;
+    flex-direction: column;
+
+    .reportTable__header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #e9ecfe;
+        align-items: center;
+        font-size: 0.8rem;
+        padding: 1rem 1rem;
+        @media #{$media-mobile} {
+            display: none;
+        }
+        span{
+            display:flex;
+            flex:0.16;
+            justify-content: center;
+        }
+    }
+    .reportTable__bodyMobile{
+        display: none;
+        @media #{$media-mobile} {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            overflow-y: scroll;
+        }
+    }
+    .reportTable__body__rowMobile{
+        display: none;
+        @media #{$media-mobile} {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #929292;
+            padding: 10px;
+            div{
+                display:flex;
+                flex:1;
+                span{
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    &:nth-child(1){
+                        flex:0.5;
+                        font-size: 1.1rem;
+                    }
+                    &:nth-child(2){
+                        flex:0.5;
+                        font-size: 0.9rem;
+                    }
+                }
+                .Active{
+                    color: #4d9151;
+                }
+                .Draft{
+                    color:#efaf02;
+                }
+                .InActive{
+                    color:#ec5b5c;
+                }
+                .menuIcon{
+                color:#929292;
+                }
+            }
+        }
+    }
+    .reportTable__body{
+        height: calc(70vh - 2rem);
+        overflow: scroll;
+        @media #{$media-mobile} {
+            height: calc(10vh - 2rem);
+            display: none;
+        }
+        .reportTable__body__row{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: #fff;
+            align-items: center;
+            border-bottom: 1px solid #e9ecfe;
+            padding: 1rem 1rem;
+            color:#929292;
+            @media #{$media-mobile} {
+                display: none;
+            }
+            span{
+                display: flex;
+                flex:0.16;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                font-size: 0.8rem;
+                &:nth-child(6){
+                    flex: 0.13;
+                    justify-content: space-between;
+                
+                }
+                &:nth-child(2){
+                    flex: 0.13;
+                    justify-content: space-around;
+                
+                }
+            }
+            .Active{
+                color: #4d9151;
+            }
+            .Draft{
+                color:#efaf02;
+            }
+            .InActive{
+                color:#ec5b5c;
+            }
+            .menuIcon{
+            color:#929292;
+            }
+        }
+    }
+    .reportTable__footer {
+        overflow: hidden;
+        position: relative;
+    }
+    .reportTable__footer li {
+        float: left;
+    }
+    .reportTable__footer ul {
+        float: left;
+        left: 10%;
+        position: relative;
+        list-style-type: none;
+        @media #{$media-mobile} {
+            left: 20%;
+        }
+    }
+    .reportTable__footer ul > li {
+        left: -50%;
+        position: relative;
+    }
+    .reportTable__footer li a {
+        transition: all 100ms ease-in-out 0s;
+        background-color: #F7F7F8;
+        border-radius: 25px 25px 25px 25px;
+        color: #596de6;
+        display: block;
+        font: 12px/30px Arial, sans-serif;
+        height: 30px;
+        margin: 0 3px;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        width: 30px;
+    }
+    .reportTable__footer li a:hover {
+        background-color: #596de6;
+        color: #FFFFFF;
+    }
+    .reportTable__footer li.selected a {
+        background-color: #596de6;
+        color: #FFFFFF;
+    }
+    .reportTable__footer li.selected a:hover {
+        color: #FFFFFF;
+    }
+}

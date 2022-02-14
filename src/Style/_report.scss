@@ -1,0 +1,107 @@
+.report{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 100%;
+    .report__top{
+        display: flex;
+        padding: 0px 30px;
+    }
+    .report__bottom{
+        height: 100%;
+    }
+    .report__top--block{
+        padding: 10px 10px;
+        margin: 0px 20px;
+    }
+
+    .activeTab {
+        float: left;
+        padding: 10px 20px;
+        background: #f5f6f8;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+}
+    
+
+
+
+
+
+.reportContent{
+    background-color: #f5f6f8;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 20px 20px;
+    height: calc(100% - 40px);
+    @media #{$media-mobile} {
+        flex-direction: column;
+        height: auto;
+    }
+    .reportContent__left{
+        display: flex;
+        flex:0.99;
+        flex-direction: column;
+        // padding: 0px 10px 0px 0px;
+        .reportContent__left--block{
+            padding: 20px 10px;
+            margin: 0px 20px;
+        }
+    }
+    .reportContent__right{
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border-radius: 5px;
+        height: max-content;
+        .reportContent__right--top{
+            color: #fff;
+            padding: 15px;
+            background-color: #6a7ce9;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .reportContent__right--body{
+            display: flex;
+            flex-direction: column;
+            padding:30px;
+            input{
+                margin: 20px 0px;
+                background-color: #fff;
+                border:none;
+                border-bottom: 1px solid #c2cfe0;
+                &:focus{
+                    outline: none;
+                }
+            }
+            button{
+                background-color: #fff;
+                border:1px solid #6a7ce9;
+                padding: 10px 20px;
+                border-radius: 25px;
+                margin: 10px 0px;
+            }
+            .MuiFormControlLabel-root{
+                font-size: 10px;
+            }
+            .MuiChecked{
+                color: #6a7ce9;
+            }
+        }
+        .reportContent__right--bottom{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            button{
+                color: #fff;
+                background-color: #6a7ce9;
+                border:1px solid #6a7ce9;
+                padding: 10px 20px;
+                border-radius: 25px;
+                margin: 10px 0px;
+            }
+        }
+    }
+}
