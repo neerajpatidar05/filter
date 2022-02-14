@@ -11,6 +11,7 @@ import TransactionInfo from './components/Pages/Table/TransactionInfo.js';
 import SingleTransactionDetails from './components/Pages/Table/SingleTransactionDetails.js';
 import NewTable from './components/Pages/Table/NewTable.js';
 import TransactionDetails from './components/Pages/Table/TransactionDetails.js';
+import Header2 from './components/Header/Header2.js';
 
 // import './App.css';
 
@@ -25,7 +26,7 @@ return (
 	<div className="App">
 		<Router>
 			<Routes>
-				<Route path="/" element={<><Navbar/>
+				<Route path="/" element={<><Header2/>
 				<Home/>
 				</>} />
 
