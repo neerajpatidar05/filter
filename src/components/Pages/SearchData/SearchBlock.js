@@ -1,6 +1,6 @@
 import { Box, Card, Button,Divider, Grid, List, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, TextField, Tabs, Tab } from '@mui/material'
 import React,{useState} from 'react'
-import './singleTransaction.css'
+// import './singleTransaction.css'
 import moment from "moment";
 import { Details } from '@mui/icons-material';
 import { useNavigate,useLocation } from 'react-router-dom';
@@ -42,7 +42,7 @@ function TabPanel(props) {
   }
   
 
-const NewTable = () => {
+const SearchBlock = () => {
     const [transactionLists,setTransactionLists]=useState()
     const navigate=useNavigate()
     const [value, setValue] = React.useState(0);
@@ -62,7 +62,7 @@ const NewTable = () => {
     // const [getSingleBlock,setSingleBlock]=useState()
     // setSingleBlock(location.state.row)
     // console.log(location.state.row)
-    const singleBlock=location.state.row
+    const singleBlock=location.state.blockDetails
     console.log(singleBlock, "single block component")
     console.log(singleBlock.number, "single block component")
 
@@ -212,4 +212,4 @@ const NewTable = () => {
   )
 }
 
-export default NewTable
+export default SearchBlock

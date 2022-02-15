@@ -12,6 +12,8 @@ import SingleTransactionDetails from './components/Pages/Table/SingleTransaction
 import NewTable from './components/Pages/Table/NewTable.js';
 import TransactionDetails from './components/Pages/Table/TransactionDetails.js';
 import Header2 from './components/Header/Header2.js';
+import SearchBlock from './components/Pages/SearchData/SearchBlock.js';
+import SearchHash from './components/Pages/SearchData/SearchHash.js';
 
 // import './App.css';
 
@@ -25,43 +27,53 @@ function App() {
 return (
 	<div className="App">
 		<Router>
+		<Header2/>
+
 			<Routes>
-				<Route path="/" element={<><Header2/>
+				<Route path="/" element={<>
 				<Home/>
 				</>} />
 
-				<Route path="/blocks" element={<><Navbar/>
+				<Route path="/blocks" element={<>
 				<Blocks/>
 				</>} 
 				/>
 
-				<Route path="/transactions" element={<><Navbar/>
+				<Route path="/transactions" element={<>
 					<Transactions/>
 				</>} 
 				/>
 
 
-				<Route path="/staking" element={<><Navbar/>
+				<Route path="/staking" element={<>
 					<Stack/>
 				</>} 
 				/>
 
-				<Route path="/transactionDetails" element={<><Navbar/>
+				<Route path="/transactionDetails" element={<>
 					<TransactionInfo/>
 				</>} 
 				/>
 
 
-				<Route path="/wallet" element={<><Navbar/>
+				<Route path="/wallet" element={<>
 				<WalletCard/>
 				</>} />
 
-				<Route path="/singledetails" element={<><Navbar/>
+				<Route path="/singledetails" element={<>
 				<NewTable/>
 				</>} />
 
-				<Route path="/singletransactioninfo" element={<><Navbar/>
+				<Route path="/singletransactioninfo" element={<>
 				<TransactionDetails/>
+				</>} />
+
+				<Route path="/searchdetails" element={<>
+				<SearchBlock/>
+				</>} />
+
+				<Route path="/searchhash" element={<>
+				<SearchHash/>
 				</>} />
 
 

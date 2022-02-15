@@ -70,10 +70,11 @@ export default function CustomizedMenus() {
         aria-controls={open ? "demo-customized-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        variant="contained"
+        // variant="contained"
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        sx={{border:"none",color:"#7A93B4"}}
       >
         Validators
       </Button>

@@ -18,7 +18,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
-import { Avatar, Button, CircularProgress, Input } from "@mui/material";
+import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -172,13 +172,31 @@ export default function Transactions() {
     ab.push(tr);
     setdd(ab);
   }
+
+  const shortenAccountId = (fullStr) => {
+    const strLen = 20;
+    const separator = "...";
+
+    if (fullStr?.length <= strLen) return fullStr;
+
+    const sepLen = separator.length;
+    const charsToShow = strLen - sepLen;
+    const frontChars = Math.ceil(charsToShow / 3);
+    const backChars = Math.floor(charsToShow / 3);
+
+    return (
+      fullStr?.substr(0, frontChars) +
+      separator +
+      fullStr?.substr(fullStr?.length - backChars)
+    );
+  };
   return (
     <>
       {console.log("Transactions length", dd.length)}
       <div className="container-fluid">
-        <h1>Transaction Details</h1>
+        {/* <h1>Transaction Details</h1> */}
 
-        <Input
+        {/* <Input
           type="number"
           placeholder="By Block"
           onChange={(e) => setSearchBlock(e.target.value)}
@@ -202,11 +220,14 @@ export default function Transactions() {
           sx={{ ml: 2 }}
         >
           Search
-        </Button>
+        </Button> */}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead style={{background:"whitesmoke"}}>
-              <TableRow>
+            <TableHead >
+            <TableRow>
+                <Typography sx={{p:1.7}}>Latest Transactions</Typography>
+              </TableRow>
+              <TableRow style={{background:"whitesmoke"}}>
                 <TableCell>Transaction Hash</TableCell>
                 <TableCell align="left">Block</TableCell>
                 <TableCell align="left">From</TableCell>
@@ -228,12 +249,12 @@ export default function Transactions() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                    <span id="block_number"><Avatar sx={{mr:1}}>Tx</Avatar>{row.hash}</span> 
+                    <span id="block_number"><Avatar sx={{mr:1}}>Tx</Avatar>{shortenAccountId(row.hash)}</span> 
                     </TableCell>
-                    <TableCell align="right">{row.blockNumber}</TableCell>
-                    <TableCell align="right">{row.from}</TableCell>
-                    <TableCell align="right">{row.to ? row.to : "-"}</TableCell>
-                    <TableCell align="right">{row.blockHash}</TableCell>
+                    <TableCell align="left">{row.blockNumber}</TableCell>
+                    <TableCell align="left">{shortenAccountId(row.from)}</TableCell>
+                    <TableCell align="left">{row.to ? row.to : "-"}</TableCell>
+                    <TableCell align="left">{shortenAccountId(row.blockHash)}</TableCell>
                   </TableRow>
                 ))}
                 {emptyRows > 0 && (

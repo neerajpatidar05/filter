@@ -3,7 +3,6 @@ import Web3 from "web3";
 import React,{useEffect,useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './singleTransaction.css'
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -45,7 +44,7 @@ function TabPanel(props) {
   }
   
 
-const TransactionDetails = () => {
+const SearchHash = () => {
     const location=useLocation();
     const getDetails=location.state.details
     console.log("getdata",getDetails)
@@ -54,6 +53,7 @@ const TransactionDetails = () => {
     const web3 = new Web3();
     web3.setProvider("https://testnet.dexit.network");
     const[getDetailsInfo,setDetailsInfo]=useState()
+    const[blockdata,setBlockData]=useState()
 
     const [value, setValue] = React.useState(0);
 
@@ -70,17 +70,23 @@ const TransactionDetails = () => {
   
         useEffect(()=>{
             getInfo()
-        },[getDetails])
+        },[])
     
     const getInfo=async()=>{
-        let getTransactionDetails =await web3.eth.getTransaction(getDetails.transactionHash)
+        let getTransactionDetails =await web3.eth.getTransactionReceipt(getDetails)
+      
         console.log(getTransactionDetails,"getTransactionDetails////////////")
+        console.log(getTransactionDetails.transactionHash,".......getTransactionDetails////////////")
         setDetailsInfo(getTransactionDetails)
+        let getBlock =await web3.eth.getTransaction(getDetails)
+        console.log(getBlock,"g'''''''''''''etTransactionDetails////////////")
+        setBlockData(getBlock)
     }
+
 
   return (
     <>
-    {getDetails ?
+    {getDetailsInfo ?
     <Card sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
         <Box sx={{ flexGrow: 1 }}>
           <ArrowBackIcon onClick={()=>handleChangeState()} fontSize="large" />
@@ -100,14 +106,14 @@ const TransactionDetails = () => {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left">Transaction Hash :</TableCell>
-                        <TableCell align="left">{getDetails.transactionHash}</TableCell>
+                        <TableCell align="left">{getDetailsInfo.transactionHash}</TableCell>
                     </TableRow>
 
                     <TableRow
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left">Status :</TableCell>
-                        <TableCell align="left">{getDetails.status==true ? (<Button variant="contained" disabled id="success">Success</Button>):(<Button variant="contained" disabled id="unsucess">Failed</Button>)}</TableCell>
+                        <TableCell align="left">{getDetailsInfo.status==true ? (<Button variant="contained" disabled id="success">Success</Button>):(<Button variant="contained" disabled id="unsucess">Failed</Button>)}</TableCell>
                     </TableRow>
 
 
@@ -115,7 +121,7 @@ const TransactionDetails = () => {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >Block Number :</TableCell>
-                        <TableCell align="left">{getDetails.blockNumber}</TableCell>
+                        <TableCell align="left">{getDetailsInfo.blockNumber}</TableCell>
                     </TableRow>
 
 
@@ -123,21 +129,21 @@ const TransactionDetails = () => {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >Time :</TableCell>
-                        <TableCell align="left">{timeStamp ? moment.unix(timeStamp).format("YYYY-MM-DD h:mm:ss a") : "-"}</TableCell>
+                        <TableCell align="left">{blockdata ? moment.unix(blockdata.timeStamp).format("YYYY-MM-DD h:mm:ss a") : "-"}</TableCell>
                     </TableRow>
 
                     <TableRow
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >From :</TableCell>
-                        <TableCell align="left">{getDetails.from}</TableCell>
+                        <TableCell align="left">{getDetailsInfo.from}</TableCell>
                     </TableRow>
 
                     <TableRow
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >To :</TableCell>
-                        <TableCell align="left">{getDetails.to ? getDetails.to : getDetails.contractAddress}</TableCell>
+                        <TableCell align="left">{getDetailsInfo.to ? getDetailsInfo.to : getDetailsInfo.contractAddress}</TableCell>
                     </TableRow>
 
                     {/* <TableRow
@@ -162,21 +168,21 @@ const TransactionDetails = () => {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >Gas Price :</TableCell>
-                        <TableCell align="left">{getDetailsInfo ? getDetailsInfo.gasPrice:"-"}</TableCell>
+                        <TableCell align="left">{blockdata ? blockdata.gasPrice:"-"}</TableCell>
                     </TableRow>
 
                     <TableRow
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >Gas Used by Transaction :</TableCell>
-                        <TableCell align="left">{getDetails.gasUsed}</TableCell>
+                        <TableCell align="left">{getDetailsInfo.gasUsed}</TableCell>
                     </TableRow>
 
                     <TableRow
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="left"  >Nonce :</TableCell>
-                        <TableCell align="left">{getDetailsInfo ? getDetailsInfo.nonce:"-"}</TableCell>
+                        <TableCell align="left">{blockdata ? blockdata.nonce:"-"}</TableCell>
                     </TableRow>
 
                 </TableBody>
@@ -193,4 +199,4 @@ const TransactionDetails = () => {
   )
 }
 
-export default TransactionDetails
+export default SearchHash

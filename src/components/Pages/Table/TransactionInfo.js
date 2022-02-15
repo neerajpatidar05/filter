@@ -1,5 +1,5 @@
 import { CircularProgress, TableCell, TableFooter, TableHead ,Box, Card, Typography} from '@mui/material';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Web3 from "web3";
 import Paper from '@mui/material/Paper';
@@ -95,16 +95,26 @@ const TransactionInfo = () => {
     web3.setProvider("https://testnet.dexit.network");
     const location=useLocation();
     const navigate=useNavigate()
+    const[blockTime,setBlockTime]=useState()
     const [transaction, setTransaction] = React.useState([]);
     const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
     // const transactionInfo=location.state.transactions
     useEffect(() => {
         if(location.state.transactions){
         getData(location.state.transactions)
-
+        getTimeStamp(location.state.timestamp)
+        console.log(location.state.timestamp,"timestamp of new component")
         }
     },[])
+
+    // if(location.state.blockNumber){
+    //     setBlockNumber(location.state.blockNumber)
+    // }
+
+    const getTimeStamp=(time)=>{
+        setBlockTime(time)
+    }
 
     const getData=async(val)=>{
         console.log("getdata",typeof val) 
@@ -150,18 +160,20 @@ if(transaction.length!=0) {
         };
 
         const sendTransactionDetails=(details)=>{
-            navigate('/singletransactioninfo',{state:{details:details}})
+            navigate('/singletransactioninfo',{state:{details:details,blockTime:blockTime}})
         }
 
 
   return (
     <>
-    <Card sx={{ display: 'flex', alignItems: 'center', p: 2 ,mt:2}}>
+    <Card sx={{ display: 'flex', p: 2 ,mt:2,flexDirection:"column",background:"#F8F9FA"}}>
+        <Typography variant="h6" sx={{m:1}}>Transactions</Typography>
+        {/* <Typography variant="h6">For Block {blockNumber!=null ? blockNumber:"-"} </Typography> */}
         { transaction.length!=0 ? (
         <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h5">A total of {transaction.length} transactions found</Typography>
-        <TableContainer component={Paper} sx={{mt:2}}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableContainer component={Paper} sx={{m:1}}>
+        <Typography variant="subtitle2" sx={{m:1,color:"#7F7C7E"}}>A total of {transaction.length} transactions found</Typography>
+          <Table sx={{ minWidth: 650 ,m:1}} aria-label="simple table">
             <TableHead style={{background:"whitesmoke"}}>
               <TableRow>
                 <TableCell>Transaction Hash</TableCell>
@@ -182,7 +194,7 @@ if(transaction.length!=0) {
                 ).map((row, index) => (
                   <TableRow
                     key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } ,cursor:"pointer"}}
                     onClick={()=>sendTransactionDetails(row)}
                   >
                     <TableCell component="th" scope="row">

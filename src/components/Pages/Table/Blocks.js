@@ -19,7 +19,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
-import { Avatar, Button, CircularProgress, Input } from "@mui/material";
+import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
 import moment from "moment";
 import SingleTransactionDetails from "./SingleTransactionDetails";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -165,12 +165,30 @@ export default function Blocks() {
     setShowDetails(false)
   }
 
+  const shortenAccountId = (fullStr) => {
+    const strLen = 20;
+    const separator = "...";
+
+    if (fullStr?.length <= strLen) return fullStr;
+
+    const sepLen = separator.length;
+    const charsToShow = strLen - sepLen;
+    const frontChars = Math.ceil(charsToShow / 3);
+    const backChars = Math.floor(charsToShow / 3);
+
+    return (
+      fullStr?.substr(0, frontChars) +
+      separator +
+      fullStr?.substr(fullStr?.length - backChars)
+    );
+  };
+
   return (
     <>
     { !showDetails ?
       <div className="container-fluid">
-        <h1>Block Details</h1>
-        <Input
+        {/* <h1>Block Details</h1> */}
+        {/* <Input
           type="number"
           placeholder="Search block"
           onChange={(e) => setSearchBlock(e.target.value)}
@@ -181,11 +199,14 @@ export default function Blocks() {
           sx={{ ml: 2 }}
         >
           Search
-        </Button>
+        </Button> */}
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 ,mt:2}} aria-label="simple table">
-            <TableHead style={{background:"whitesmoke"}}>
+          <Table sx={{ minWidth: 600 }} aria-label="simple table">
+            <TableHead >
               <TableRow>
+                <Typography sx={{p:1.7}}>Latest Blocks</Typography>
+              </TableRow>
+              <TableRow style={{background:"whitesmoke"}}>
                 <TableCell align="left">Number</TableCell>
                 <TableCell align="left">Hash</TableCell>
                 {/* <TableCell align="center">Transactions</TableCell> */}
@@ -207,7 +228,7 @@ export default function Blocks() {
                     onClick={()=>singleTransactionDetails(row)}
                   >
                     <TableCell align="left"><span id="block_number"><Avatar sx={{mr:1}}>Bk</Avatar>{row.number}</span></TableCell>
-                    <TableCell align="left">{row.hash}</TableCell>
+                    <TableCell align="left">{shortenAccountId(row.hash)}</TableCell>
                     {/* <TableCell align="center">{row.transactions}</TableCell> */}
                     <TableCell align="left">{moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a")}</TableCell>
                     {/* {console.log(moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a"))} */}
