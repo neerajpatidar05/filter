@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -19,15 +18,20 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
-import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  CircularProgress,
+  Input,
+  Typography,
+} from "@mui/material";
 import moment from "moment";
 import SingleTransactionDetails from "./SingleTransactionDetails";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NewTable from "./NewTable";
-import './singleTransaction.css'
-import {useNavigate} from 'react-router-dom';
-
-
+import "./singleTransaction.css";
+import { useNavigate } from "react-router-dom";
+import './blocks.css'
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -100,28 +104,28 @@ TablePaginationActions.propTypes = {
 export default function Blocks() {
   const web3 = new Web3();
   web3.setProvider("https://testnet.dexit.network");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [searchBlock, setSearchBlock] = React.useState(0);
   const [dd, setdd] = useState([]);
-  const[singleBlock,setSingleBlock]=useState()
-  const[showDetails,setShowDetails]=useState(false)
+  const [singleBlock, setSingleBlock] = useState();
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     Init();
   }, []);
 
   useEffect(() => {
-      clearInterval(id);
+    clearInterval(id);
   }, [dd]);
 
   const id = setInterval(() => {
     Init();
   }, 30000);
-  
+
   async function Init() {
-    console.log("called init blocks")
+    console.log("called init blocks");
     let ab = [];
     let bc = [];
 
@@ -150,20 +154,20 @@ export default function Blocks() {
   async function searchTransactionByBlock() {
     let block = [];
     let blockDetails = await web3.eth.getBlock(searchBlock);
-    block.push(blockDetails)
+    block.push(blockDetails);
     setdd(block);
   }
 
-  const singleTransactionDetails=(row)=>{
-    setSingleBlock(row)
-    setShowDetails(true)
-    navigate('/singledetails',{state:{row:row}})
-    console.log(row,"single transaction details")
-  }
+  const singleTransactionDetails = (row) => {
+    setSingleBlock(row);
+    setShowDetails(true);
+    navigate("/singledetails", { state: { row: row } });
+    console.log(row, "single transaction details");
+  };
 
-  const handleChangeState=()=>{
-    setShowDetails(false)
-  }
+  const handleChangeState = () => {
+    setShowDetails(false);
+  };
 
   const shortenAccountId = (fullStr) => {
     const strLen = 20;
@@ -183,12 +187,16 @@ export default function Blocks() {
     );
   };
 
+  const handleViewAllBlocks = () => {
+    navigate("/blocks");
+  };
+
   return (
     <>
-    { !showDetails ?
-      <div className="container-fluid">
-        {/* <h1>Block Details</h1> */}
-        {/* <Input
+      {!showDetails ? (
+        <div className="container-fluid">
+          {/* <h1>Block Details</h1> */}
+          {/* <Input
           type="number"
           placeholder="Search block"
           onChange={(e) => setSearchBlock(e.target.value)}
@@ -200,56 +208,70 @@ export default function Blocks() {
         >
           Search
         </Button> */}
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 600 }} aria-label="simple table">
-            <TableHead >
-              <TableRow>
-                <Typography sx={{p:1.7}}>Latest Blocks</Typography>
-              </TableRow>
-              <TableRow style={{background:"whitesmoke"}}>
-                <TableCell align="left">Number</TableCell>
-                <TableCell align="left">Hash</TableCell>
-                {/* <TableCell align="center">Transactions</TableCell> */}
-                <TableCell align="left">Timestamp</TableCell>
-              </TableRow>
-            </TableHead>
-            {dd.length > 0 ? (
-              <TableBody>
-                {(rowsPerPage > 0
-                  ? rows.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : dd
-                ).map((row, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } ,cursor:"pointer"}}
-                    onClick={()=>singleTransactionDetails(row)}
-                  >
-                    <TableCell align="left"><span id="block_number"><Avatar sx={{mr:1}}>Bk</Avatar>{row.number}</span></TableCell>
-                    <TableCell align="left">{shortenAccountId(row.hash)}</TableCell>
-                    {/* <TableCell align="center">{row.transactions}</TableCell> */}
-                    <TableCell align="left">{moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a")}</TableCell>
-                    {/* {console.log(moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a"))} */}
-                  </TableRow>
-                ))}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            ) : (
-              <TableRow align="center">
-                <TableCell colSpan={12} align="center">
-                <Box sx={{ display: 'flex',justifyContent:"center" }}>
-                  <CircularProgress />
-                </Box>
-                </TableCell>
-              </TableRow>
-            )}{" "}
-            <TableFooter>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 600 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <Typography sx={{ p: 1.7 }}>Latest Blocks</Typography>
+                </TableRow>
+                <TableRow style={{ background: "whitesmoke" }}>
+                  <TableCell align="left">Number</TableCell>
+                  <TableCell align="left">Hash</TableCell>
+                  {/* <TableCell align="center">Transactions</TableCell> */}
+                  <TableCell align="left">Timestamp</TableCell>
+                </TableRow>
+              </TableHead>
+              {dd.length > 0 ? (
+                <TableBody>
+                  {(rowsPerPage > 0
+                    ? rows.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                    : dd
+                  ).map((row, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        cursor: "pointer",
+                      }}
+                      onClick={() => singleTransactionDetails(row)}
+                    >
+                      <TableCell align="left">
+                        <span id="block_number">
+                          <Avatar sx={{ mr: 1 }}>Bk</Avatar>
+                          {row.number}
+                        </span>
+                      </TableCell>
+                      <TableCell align="left">
+                        {shortenAccountId(row.hash)}
+                      </TableCell>
+                      {/* <TableCell align="center">{row.transactions}</TableCell> */}
+                      <TableCell align="left">
+                        {moment
+                          .unix(row.timestamp)
+                          .format("YYYY-MM-DD h:mm:ss a")}
+                      </TableCell>
+                      {/* {console.log(moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a"))} */}
+                    </TableRow>
+                  ))}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              ) : (
+                <TableRow align="center">
+                  <TableCell colSpan={12} align="center">
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <CircularProgress />
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              )}{" "}
+              {/*<TableFooter>
               <TableRow>
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 15, { label: "All", value: -1 }]}
@@ -268,17 +290,30 @@ export default function Blocks() {
                   ActionsComponent={TablePaginationActions}
                 />
               </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
-      </div>
-      :
-      <div className="single_block">
-          <ArrowBackIcon onClick={handleChangeState} fontSize="large" sx={{mt:3}}/>
+                </TableFooter>*/}
+            </Table>
+            <Button
+              className="blocksBtn"
+              variant="contained"
+              color="grey"
+              fullWidth
+              sx={{ mr: 2, ml: 2, mb: 3, width: "96%" }}
+              onClick={handleViewAllBlocks}
+            >
+              View All Blocks
+            </Button>
+          </TableContainer>
+        </div>
+      ) : (
+        <div className="single_block">
+          <ArrowBackIcon
+            onClick={handleChangeState}
+            fontSize="large"
+            sx={{ mt: 3 }}
+          />
           {/* <NewTable singleBlock={singleBlock}/> */}
-      </div>
-}
+        </div>
+      )}
     </>
   );
 }
-

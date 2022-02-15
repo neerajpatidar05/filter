@@ -19,7 +19,8 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
 import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
+import './blocks.css'
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -90,6 +91,8 @@ TablePaginationActions.propTypes = {
 };
 
 export default function Transactions() {
+  const navigate = useNavigate();
+
   const web3 = new Web3();
   web3.setProvider("https://testnet.dexit.network");
 
@@ -190,6 +193,10 @@ export default function Transactions() {
       fullStr?.substr(fullStr?.length - backChars)
     );
   };
+  const handleViewAllTxs = () =>{
+    navigate("/transactions");
+  }
+
   return (
     <>
       {console.log("Transactions length", dd.length)}
@@ -272,7 +279,7 @@ export default function Transactions() {
                 </TableCell>
               </TableRow>
             )}{" "}
-            <TableFooter>
+            {/*<TableFooter>
               <TableRow>
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 15, { label: "All", value: -1 }]}
@@ -291,8 +298,18 @@ export default function Transactions() {
                   ActionsComponent={TablePaginationActions}
                 />
               </TableRow>
-            </TableFooter>
+                </TableFooter>*/}
           </Table>
+          <Button
+          className="blocksBtn"
+          variant="contained"
+          color="grey"
+          fullWidth
+          sx={{ mr: 2, ml: 2, mb: 3, width: "96%" }}
+          onClick={handleViewAllTxs}
+        >
+          View All Transactions
+        </Button>
         </TableContainer>
       </div>
     </>
