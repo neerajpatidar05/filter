@@ -14,6 +14,9 @@ import TransactionDetails from './components/Pages/Table/TransactionDetails.js';
 import Header2 from './components/Header/Header2.js';
 import SearchBlock from './components/Pages/SearchData/SearchBlock.js';
 import SearchHash from './components/Pages/SearchData/SearchHash.js';
+import AllBlock from './components/Pages/Blocks/AllBlock.js';
+import BlockNumberDetails from './components/Pages/Blocks/BlockNumberDetails.js';
+import AllTransactions from './components/Pages/AllTransactions/AllTransactions.js';
 
 // import './App.css';
 
@@ -74,6 +77,19 @@ return (
 
 				<Route path="/searchhash" element={<>
 				<SearchHash/>
+				</>} />
+
+
+				<Route path="/allblocks" element={<>
+				<AllBlock/>
+				</>} />
+
+				<Route path="/alltransactions" element={<>
+				<AllTransactions/>
+				</>} />
+
+				<Route path="/blockdetails" element={<>
+				<BlockNumberDetails/>
 				</>} />
 
 
