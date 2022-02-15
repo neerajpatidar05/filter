@@ -194,7 +194,7 @@ export default function Transactions() {
     );
   };
   const handleViewAllTxs = () =>{
-    navigate("/transactions");
+    navigate("/alltransactions");
   }
 
   return (

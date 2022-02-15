@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -20,11 +19,18 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
-import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  CircularProgress,
+  Input,
+  Typography,
+} from "@mui/material";
 import moment from "moment";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useNavigate} from 'react-router-dom';
-
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
+import SearchBox from "../../SearchBox";
+import Header3 from "../../Header/Header3";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -98,28 +104,28 @@ TablePaginationActions.propTypes = {
 export default function Blocks() {
   const web3 = new Web3();
   web3.setProvider("https://testnet.dexit.network");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [searchBlock, setSearchBlock] = React.useState(0);
   const [dd, setdd] = useState([]);
-  const[singleBlock,setSingleBlock]=useState()
-  const[showDetails,setShowDetails]=useState(false)
+  const [singleBlock, setSingleBlock] = useState();
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     Init();
   }, []);
 
   useEffect(() => {
-      clearInterval(id);
+    clearInterval(id);
   }, [dd]);
 
   const id = setInterval(() => {
     Init();
   }, 30000);
-  
+
   async function Init() {
-    console.log("called init blocks")
+    console.log("called init blocks");
     let ab = [];
     let bc = [];
 
@@ -132,8 +138,8 @@ export default function Blocks() {
   }
 
   const rows = dd;
-  console.log(rows,"rows")
-//   console.log(rows.length,"rows length")
+  console.log(rows, "rows");
+  //   console.log(rows.length,"rows length")
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -147,19 +153,17 @@ export default function Blocks() {
     setPage(0);
   };
 
-  
-
-  const singleTransactionDetails=(row)=>{
-      console.log(row,"number")
-    navigate('/blockdetails',{state:{row:row}})
-    setSingleBlock(row)
-    setShowDetails(true)
+  const singleTransactionDetails = (row) => {
+    console.log(row, "number");
+    navigate("/blockdetails", { state: { row: row } });
+    setSingleBlock(row);
+    setShowDetails(true);
     // console.log(row,"single transaction details")
-  }
+  };
 
-  const handleChangeState=()=>{
-    setShowDetails(false)
-  }
+  const handleChangeState = () => {
+    setShowDetails(false);
+  };
 
   const shortenAccountId = (fullStr) => {
     const strLen = 40;
@@ -179,110 +183,144 @@ export default function Blocks() {
     );
   };
 
-  const blockTransactions=(transactions,blockNumber,timestamp)=>{
-    navigate('/transactionDetails',{state:{transactions:transactions,blockNumber:blockNumber,timestamp:timestamp}})
-  }
+  const blockTransactions = (transactions, blockNumber, timestamp) => {
+    navigate("/transactionDetails", {
+      state: {
+        transactions: transactions,
+        blockNumber: blockNumber,
+        timestamp: timestamp,
+      },
+    });
+  };
 
-//   const getBlockDetails=(hash)=>{
-//         navigate('/transactionDetails',{state:{details:hash}})
-// }
-//   const getLists=(transactions)=>{
-//     setTransactionLists(transactions)
-//     console.log(transactions,"details",blockNumber,"time",timestamp)
-//     navigate('/transactionDetails',{state:{transactions:transactions,blockNumber:blockNumber,timestamp:timestamp}})
-//     console.log(transactions,"details 2")
+  //   const getBlockDetails=(hash)=>{
+  //         navigate('/transactionDetails',{state:{details:hash}})
+  // }
+  //   const getLists=(transactions)=>{
+  //     setTransactionLists(transactions)
+  //     console.log(transactions,"details",blockNumber,"time",timestamp)
+  //     navigate('/transactionDetails',{state:{transactions:transactions,blockNumber:blockNumber,timestamp:timestamp}})
+  //     console.log(transactions,"details 2")
 
-// }
+  // }
 
   return (
     <>
-    
+      <SearchBox />
+      <Header3 />
       <div className="container-fluid">
-    <Card sx={{p:2,boxShadow:"none",background:"#F8F9FA"}}>    
-        <Typography variant="h5" component="h2">Blocks</Typography>
-        <TableContainer component={Paper} sx={{mt:1.4,boxShadow:"none"}} >
-          <Table sx={{ minWidth: 600 }} aria-label="simple table">
-            <TableHead >
-              {/* <TableRow>
+        <Card sx={{ p: 2, boxShadow: "none", background: "#F8F9FA" }}>
+          <Typography variant="h5" component="h2">
+            Blocks
+          </Typography>
+          <TableContainer component={Paper} sx={{ mt: 1.4, boxShadow: "none" }}>
+            <Table sx={{ minWidth: 600 }} aria-label="simple table">
+              <TableHead>
+                {/* <TableRow>
                 <Typography sx={{p:1.7}}>Latest Blocks</Typography>
               </TableRow> */}
-              <TableRow style={{background:"whitesmoke"}}>
-                <TableCell align="center">S.No</TableCell>
-                <TableCell align="center">Number</TableCell>
-                <TableCell align="center">Txn</TableCell>
-                {/* <TableCell align="center">Hash</TableCell> */}
-                <TableCell align="center">Gas Used</TableCell>
-                <TableCell align="center">Gas Limit</TableCell>
-                <TableCell align="center">Timestamp</TableCell>
-              </TableRow>
-            </TableHead>
-            {dd.length > 0 ? (
-              <TableBody>
-                {(rowsPerPage > 0
-                  ? rows.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : dd
-                ).slice(0).reverse().map((row, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } ,cursor:"pointer"}}
-                    
-                  >
-                    <TableCell align="center">{index}</TableCell>
-                    <TableCell align="center" sx={{color:"#3498E2"}} onClick={()=>singleTransactionDetails(row.number)}>{row.number}</TableCell>
-                    <TableCell align="center" sx={{color:"#3498E2"}} onClick={()=>blockTransactions(row.transactions,row.number,row.timestamp)}>{row.transactions.length}</TableCell>
-                    {/* <TableCell align="center" sx={{color:"#3498E2"}} >{shortenAccountId(row.hash)}</TableCell> */}
-                    <TableCell align="center">{row.gasUsed}</TableCell>
-                    <TableCell align="center">{row.gasLimit}</TableCell>
-                    <TableCell align="center">{moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a")}</TableCell>
-                    {/* {console.log(moment.unix(row.timestamp).startOf('seconds').fromNow(),"seconds")} */}
-                    {/* {console.log(moment(row.timestamp).format("YYYY-MM-DD h:mm:ss a").fromNow())} */}
-                    {/* {console.log(moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a"))} */}
-                  </TableRow>
-                ))}
-                {/* {emptyRows > 0 && (
+                <TableRow style={{ background: "whitesmoke" }}>
+                  <TableCell align="center">S.No</TableCell>
+                  <TableCell align="center">Number</TableCell>
+                  <TableCell align="center">Txn</TableCell>
+                  {/* <TableCell align="center">Hash</TableCell> */}
+                  <TableCell align="center">Gas Used</TableCell>
+                  <TableCell align="center">Gas Limit</TableCell>
+                  <TableCell align="center">Timestamp</TableCell>
+                </TableRow>
+              </TableHead>
+              {dd.length > 0 ? (
+                <TableBody>
+                  {(rowsPerPage > 0
+                    ? rows.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                    : dd
+                  )
+                    .slice(0)
+                    .reverse()
+                    .map((row, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                          cursor: "pointer",
+                        }}
+                      >
+                        <TableCell align="center">{index}</TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{ color: "#3498E2" }}
+                          onClick={() => singleTransactionDetails(row.number)}
+                        >
+                          {row.number}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{ color: "#3498E2" }}
+                          onClick={() =>
+                            blockTransactions(
+                              row.transactions,
+                              row.number,
+                              row.timestamp
+                            )
+                          }
+                        >
+                          {row.transactions.length}
+                        </TableCell>
+                        {/* <TableCell align="center" sx={{color:"#3498E2"}} >{shortenAccountId(row.hash)}</TableCell> */}
+                        <TableCell align="center">{row.gasUsed}</TableCell>
+                        <TableCell align="center">{row.gasLimit}</TableCell>
+                        <TableCell align="center">
+                          {moment
+                            .unix(row.timestamp)
+                            .format("YYYY-MM-DD h:mm:ss a")}
+                        </TableCell>
+                        {/* {console.log(moment.unix(row.timestamp).startOf('seconds').fromNow(),"seconds")} */}
+                        {/* {console.log(moment(row.timestamp).format("YYYY-MM-DD h:mm:ss a").fromNow())} */}
+                        {/* {console.log(moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a"))} */}
+                      </TableRow>
+                    ))}
+                  {/* {emptyRows > 0 && (
                   <TableRow style={{ height: 53 * emptyRows }}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )} */}
-              </TableBody>
-            ) : (
-              <TableRow align="center">
-                <TableCell colSpan={12} align="center">
-                <Box sx={{ display: 'flex',justifyContent:"center" }}>
-                  <CircularProgress />
-                </Box>
-                </TableCell>
-              </TableRow>
-            )}{" "}
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[15, { label: "All", value: -1 }]}
-                  colSpan={3}
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  SelectProps={{
-                    inputProps: {
-                      "aria-label": "rows per page",
-                    },
-                    native: true,
-                  }}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
-    </Card>
+                </TableBody>
+              ) : (
+                <TableRow align="center">
+                  <TableCell colSpan={12} align="center">
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <CircularProgress />
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              )}{" "}
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[15, { label: "All", value: -1 }]}
+                    colSpan={3}
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: {
+                        "aria-label": "rows per page",
+                      },
+                      native: true,
+                    }}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </Card>
       </div>
-      
     </>
   );
 }
-
