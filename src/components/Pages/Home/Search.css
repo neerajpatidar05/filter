@@ -1,8 +1,8 @@
 .parent_div{
-    background: #12161C;
+    background-color: #12161C;
     /* background: url('../../../Image/bg.png') no-repeat; */
 
-    /* z-index: -1; */
+    z-index: -1;
     height: 30vh;
 }
 

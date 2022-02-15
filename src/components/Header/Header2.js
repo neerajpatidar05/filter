@@ -10,13 +10,14 @@ import Blockchains from "./Blockchains";
 import Validators from "./Validators";
 import { Button, CardMedia } from "@mui/material";
 import logo from "../../Image/logo512.png";
-import dexitLogo from '../../Image/dexit1.png'
+import dexitLogo from "../../Image/dexit1.png";
 import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
+import { GifBox } from "@mui/icons-material";
 
 export default function Header2() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -121,7 +122,7 @@ export default function Header2() {
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
-      sx={{width:"auto"}}
+      sx={{ width: "auto" }}
     >
       <MenuItem>
         <IconButton
@@ -192,35 +193,35 @@ export default function Header2() {
         sx={{ background: "white", color: "#7A93B4", boxShadow: "none" }}
       >
         <Toolbar>
-          <IconButton
+          <Box
             size="large"
             edge="start"
             color="inherit"
-            aria-label="open drawer"
+            // aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <CardMedia component="img" height="30" image={dexitLogo} />
-          </IconButton>
+            <CardMedia component="img" height="50" image={dexitLogo} />
+          </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box
             sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
           >
-            <IconButton
-              size="small"
-              aria-label="show 4 new mails"
-              color="inherit"
+            <Button
+              id="demo-customized-button"
               onClick={() => handleHome()}
+              disableElevation
+              sx={{ border: "none", color: "#7A93B4" }}
             >
               <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
                 Home
               </span>
-            </IconButton>
+            </Button>
 
-            <IconButton
-              size="small"
-              aria-label="show 4 new mails"
-              color="inherit"
+            <Button
+              id="demo-customized-button"
               onClick={() => handleBlock()}
+              disableElevation
+              sx={{ border: "none", color: "#7A93B4" }}
             >
               <span
                 style={{
@@ -231,23 +232,18 @@ export default function Header2() {
               >
                 Blocks
               </span>
-            </IconButton>
+            </Button>
 
-            <IconButton
+            <Box
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
               <Blockchains />
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-              onClick={() => handleRoute()}
-            >
+            </Box>
+            <Box onClick={() => handleRoute()}>
               <Validators />
-            </IconButton>
+            </Box>
             <Button
               id="demo-customized-button"
               color="error"
