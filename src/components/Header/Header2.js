@@ -12,7 +12,7 @@ import { Button, CardMedia } from "@mui/material";
 import logo from "../../Image/logo512.png";
 import dexitLogo from "../../Image/dexit1.png";
 import { ethers } from "ethers";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -23,6 +23,7 @@ export default function Header2() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const location = useLocation()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -185,6 +186,10 @@ export default function Header2() {
       </MenuItem>
     </Menu>
   );
+
+console.log(location.pathname);
+
+if(location.pathname === "/allblocks" || location.pathname === "/alltransactions") return null
 
   return (
     <Box sx={{ flexGrow: 1 }}>

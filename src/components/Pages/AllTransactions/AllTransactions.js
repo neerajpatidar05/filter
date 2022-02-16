@@ -21,6 +21,8 @@ import { useState, useEffect } from "react";
 import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
+import SearchBox from "../../SearchBox";
+import Header3 from "../../Header/Header3";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -201,6 +203,8 @@ export default function AllTransactions() {
 
   return (
     <>
+    <SearchBox />
+    <Header3 />
       {console.log("Transactions length", dd.length)}
       <div className="container-fluid">
         {/* <h1>Transaction Details</h1> */}

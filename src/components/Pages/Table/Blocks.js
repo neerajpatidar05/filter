@@ -188,7 +188,7 @@ export default function Blocks() {
   };
 
   const handleViewAllBlocks = () => {
-    navigate("/blocks");
+    navigate("/allblocks");
   };
 
   return (

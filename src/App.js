@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar/Navbar.js';
 import Blocks from './components/Pages/Table/Blocks.js';
 import WalletCard from './components/Pages/Wallet/WalletCard.js';
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Route, Routes, BrowserRouter as Router,useLocation } from "react-router-dom";
 import Transactions from './components/Pages/Table/Transactions.js';
 import { Typography } from '@mui/material';
 import Stack from './components/Pages/Stacking/Stack.js';
@@ -22,14 +22,11 @@ import AllTransactions from './components/Pages/AllTransactions/AllTransactions.
 
 
 function App() {
-	// bcd();
-	// async function bcd() {
-	// 	let neww=await abc.getValidators1();
-	// 	console.log(neww,"Hello bcd");
-	// }
+	
 return (
 	<div className="App">
 		<Router>
+
 		<Header2/>
 
 			<Routes>
