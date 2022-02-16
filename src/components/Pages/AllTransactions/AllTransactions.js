@@ -225,6 +225,9 @@ export default function AllTransactions() {
         <SearchBox />
       </Grid>
     </Grid>
+
+    <Header3 />
+
       {console.log("Transactions length", dd.length)}
       <div className="container-fluid">
         {/* <h1>Transaction Details</h1> */}

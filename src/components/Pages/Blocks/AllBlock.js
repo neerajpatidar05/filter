@@ -146,7 +146,7 @@ export default function Blocks() {
     let bc = [];
 
     let currentBlock = await web3.eth.getBlockNumber();
-    for (let j = currentBlock - 15; j < currentBlock; j++) {
+    for (let j = currentBlock - 15; j <= currentBlock; j++) {
       let getBlockDetails = await web3.eth.getBlock(j);
       bc.push(getBlockDetails);
     }
