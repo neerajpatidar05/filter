@@ -18,12 +18,14 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
-import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
+import { Avatar, Button, CircularProgress, Grid, Input, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import Header3 from "../../Header/Header3";
 import moment  from 'moment'
 import SearchBox from "../Home/SearchBox";
+import dexitLogo from "../../../Image/dexit1.png";
+
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -210,8 +212,15 @@ export default function AllTransactions() {
 
   return (
     <>
-    <SearchBox/>
-    <Header3 />
+  <Grid container>
+      <Grid xs={12} md={4}>
+        <img  height={60} width={200} src={dexitLogo} />
+      </Grid>
+      
+      <Grid xs={12} md={8}>
+        <SearchBox />
+      </Grid>
+    </Grid>
       {console.log("Transactions length", dd.length)}
       <div className="container-fluid">
         {/* <h1>Transaction Details</h1> */}

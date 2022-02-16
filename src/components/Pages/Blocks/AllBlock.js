@@ -223,13 +223,11 @@ export default function Blocks() {
   return (
     <>
     <Grid container>
-      <Grid md={4}>
+      <Grid xs={12} md={4}>
         <img  height={60} width={200} src={dexitLogo} />
       </Grid>
-      <Grid md={2}>
-
-      </Grid>
-      <Grid md={6}>
+      
+      <Grid xs={12} md={8}>
         <SearchBox />
       </Grid>
     </Grid>

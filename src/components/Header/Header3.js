@@ -148,7 +148,7 @@ const Header3 = () => {
             style={{
               fontSize: "13px",
               textTransform: "uppercase",
-              marginLeft: "12px",
+            
             }}
           >
             Blocks
