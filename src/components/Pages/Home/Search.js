@@ -25,7 +25,7 @@ const Search = () => {
     <div className="parent_div">
       <div className="input_div">
         <Typography sx={{ color: "#D6DA3C", fontSize: "1.5rem", pb: 1 }}>
-          Dixit Explorer
+          Dexit Explorer
         </Typography>
 
         <TextField

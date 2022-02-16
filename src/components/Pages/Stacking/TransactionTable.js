@@ -7,18 +7,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Connection from '../Connections/Connection'
 
 
 const columns = [
     {id:'id',label:'ID',minWidth:20},
-    { id: 'address', label: 'Address', minWidth: 100 },
-    { id: 'amount', label: 'Amount', minWidth: 100 },
-    { id: 'votingpower', label: 'Voting Power', minWidth: 100 },
-    { id: 'firstBlock', label: 'First Block', minWidth: 100 },
-    { id: 'lastBlock', label: 'Last Block', minWidth: 100 },
+    { id: 'address', label: 'Address', minWidth: 50 },
+    { id: 'amount', label: 'Amount', minWidth: 50 },
+    { id: 'votingpower', label: 'Voting Power', minWidth: 50 },
+    { id: 'firstBlock', label: 'First Block', minWidth: 50 },
+    { id: 'lastBlock', label: 'Last Block', minWidth: 50 },
   ];
 
 const TransactionTable = ({validatorsDetails}) => {
@@ -26,12 +26,16 @@ const TransactionTable = ({validatorsDetails}) => {
   return (
       <>
       <div className='validator_container'>
-      <Card sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
-                <Box sx={{ flexGrow: 1 }}>
+      <Card sx={{ display: 'flex',  p: 2,flexDirection:"column",boxShadow:"none",background:"#F8FAFD" }}>
+          <Typography variant="h6">Validators Top Leaderboard (Blocks Validated)</Typography>
+                <Box sx={{ flexGrow: 1 ,mt:2}}>
                 <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ minWidth: 650 ,p:2}} aria-label="simple table">
                     <TableHead>
-                    <TableRow className="heading_table">
+                        <TableRow>
+                        <Typography sx={{p:2,fontSize:"14px"}}>{validatorsDetails.length} validators found</Typography> 
+                        </TableRow>
+                    <TableRow className="heading_table" sx={{background:"#F8FAFD"}}>
                             {columns.map((column) => (
                                 <TableCell
                                 key={column.id}

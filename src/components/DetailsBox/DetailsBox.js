@@ -11,14 +11,14 @@ const DetailsBox = () => {
           flexDirection: "row",
           justifyContent: "space-between",
           backgroundColor: "white",
-          height: "25vh",
+          // height: "25vh",
           color: "#12161C",
           width: "90%",
           ml: 12,
           border: "1px solid white",
           borderRadius: 5,
           position: "absolute",
-          top: "32%",
+          top: "35%",
         }}
       >
         <Box sx={{ p: 5, width: "30%" }}>

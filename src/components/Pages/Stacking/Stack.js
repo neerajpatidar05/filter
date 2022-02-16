@@ -161,7 +161,6 @@ const Stack = () => {
 
             </div>
 
-            <div ><h1 sx={{ textAlign: 'center' }}> Validators</h1> </div>
             <TransactionTable validatorsDetails={dd}/>
         </>
     )

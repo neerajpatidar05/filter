@@ -14,7 +14,12 @@ const Home = () => {
           <Search />
         </Grid>
       </Grid>
-      <DetailsBox />
+
+      <Grid container>
+        <Grid md={12} xs={12}>
+            <DetailsBox />
+        </Grid>
+      </Grid>
       <Grid container>
         <Grid md={6} sm={12} sx={{ p: 2, mt: 25 }}>
           <Blocks />

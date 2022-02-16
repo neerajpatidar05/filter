@@ -102,7 +102,7 @@ export default function Header2() {
   };
 
   const handleBlock = () => {
-    navigate("/blocks");
+    navigate("/allblocks");
   };
 
   const mobileMenuId = "primary-search-account-menu-mobile";
