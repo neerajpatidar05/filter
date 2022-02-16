@@ -197,6 +197,10 @@ export default function Header2() {
   )
     return null;
 
+  const handleStack = () => {
+    navigate("/staking");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -225,6 +229,17 @@ export default function Header2() {
             >
               <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
                 Home
+              </span>
+            </Button>
+
+            <Button
+              id="demo-customized-button"
+              disableElevation
+              sx={{ border: "none", color: "#7A93B4" }}
+              onClick={handleStack}
+            >
+              <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
+                Stack
               </span>
             </Button>
 

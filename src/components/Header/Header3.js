@@ -195,7 +195,10 @@ const Header3 = () => {
     </Menu>
   );
 
-  console.log(location.pathname);
+  const handleStack = () =>{
+    navigate("/staking")
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -218,6 +221,17 @@ const Header3 = () => {
                 Home
               </span>
             </Button>
+            
+            <Button
+            id="demo-customized-button"
+            disableElevation
+            sx={{ border: "none", color: "#7A93B4" }}
+            onClick={handleStack}
+          >
+            <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
+              Stack
+            </span>
+          </Button>
 
             <Button
               id="demo-customized-button"
