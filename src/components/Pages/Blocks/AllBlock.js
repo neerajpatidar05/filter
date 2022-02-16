@@ -19,18 +19,24 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import Web3 from "web3";
 import { useState, useEffect } from "react";
+import { styled } from '@mui/system';
+import dexitLogo from "../../../Image/dexit1.png";
+
+
 import {
   Avatar,
   Button,
+  CardMedia,
   CircularProgress,
+  Grid,
   Input,
   Typography,
 } from "@mui/material";
 import moment from "moment";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
-import SearchBox from "../../SearchBox";
 import Header3 from "../../Header/Header3";
+import SearchBox from "../Home/SearchBox";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -100,6 +106,16 @@ TablePaginationActions.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
+
+
+const columns = [
+  {id:'id',label:'S.NO',minWidth:20},
+  { id: 'address', label: 'Block', minWidth: 50 },
+  { id: 'amount', label: 'Age', minWidth: 50 },
+  { id: 'votingpower', label: 'Txn', minWidth: 50 },
+  { id: 'firstBlock', label: 'Gas Used', minWidth: 50 },
+  { id: 'lastBlock', label: 'Gas Limit', minWidth: 50 },
+];
 
 export default function Blocks() {
   const web3 = new Web3();
@@ -206,7 +222,18 @@ export default function Blocks() {
 
   return (
     <>
-      <SearchBox />
+    <Grid container>
+      <Grid md={4}>
+        <img  height={60} width={200} src={dexitLogo} />
+      </Grid>
+      <Grid md={2}>
+
+      </Grid>
+      <Grid md={6}>
+        <SearchBox />
+      </Grid>
+    </Grid>
+      
       <Header3 />
       <div className="container-fluid">
         <Card sx={{ p: 2, boxShadow: "none", background: "#F8F9FA" }}>
@@ -221,12 +248,20 @@ export default function Blocks() {
               </TableRow> */}
                 <TableRow style={{ background: "whitesmoke" }}>
                   <TableCell align="center">S.No</TableCell>
-                  <TableCell align="center">Number</TableCell>
+                  <TableCell align="center">Block</TableCell>
+                  <TableCell align="center">Age</TableCell>
                   <TableCell align="center">Txn</TableCell>
-                  {/* <TableCell align="center">Hash</TableCell> */}
                   <TableCell align="center">Gas Used</TableCell>
                   <TableCell align="center">Gas Limit</TableCell>
-                  <TableCell align="center">Timestamp</TableCell>
+                   {/* {columns.map((column) => (
+                                <TableCell
+                                key={column.id}
+                                align={column.align}
+                                style={{ minWidth: column.minWidth }}
+                                >
+                                {column.label}
+                                </TableCell>
+                            ))} */}
                 </TableRow>
               </TableHead>
               {dd.length > 0 ? (
@@ -248,17 +283,26 @@ export default function Blocks() {
                           cursor: "pointer",
                         }}
                       >
-                        <TableCell align="center">{index}</TableCell>
+                        <TableCell align="center" style={{width:10 }}>{index}</TableCell>
                         <TableCell
                           align="center"
                           sx={{ color: "#3498E2" }}
                           onClick={() => singleTransactionDetails(row.number)}
+                          style={{width:20 }}
                         >
                           {row.number}
                         </TableCell>
+
+                        <TableCell align="center" style={{width:50}}>
+                          {moment
+                            .unix(row.timestamp)
+                            .format("YYYY-MM-DD h:mm:ss a")}
+                        </TableCell>
+
                         <TableCell
                           align="center"
                           sx={{ color: "#3498E2" }}
+                          style={{width:20 }}
                           onClick={() =>
                             blockTransactions(
                               row.transactions,
@@ -270,13 +314,9 @@ export default function Blocks() {
                           {row.transactions.length}
                         </TableCell>
                         {/* <TableCell align="center" sx={{color:"#3498E2"}} >{shortenAccountId(row.hash)}</TableCell> */}
-                        <TableCell align="center">{row.gasUsed}</TableCell>
-                        <TableCell align="center">{row.gasLimit}</TableCell>
-                        <TableCell align="center">
-                          {moment
-                            .unix(row.timestamp)
-                            .format("YYYY-MM-DD h:mm:ss a")}
-                        </TableCell>
+                        <TableCell align="center" style={{width:20 }}>{row.gasUsed}</TableCell>
+                        <TableCell align="center" style={{width:100 }}>{row.gasLimit}</TableCell>
+                       
                         {/* {console.log(moment.unix(row.timestamp).startOf('seconds').fromNow(),"seconds")} */}
                         {/* {console.log(moment(row.timestamp).format("YYYY-MM-DD h:mm:ss a").fromNow())} */}
                         {/* {console.log(moment.unix(row.timestamp).format("YYYY-MM-DD h:mm:ss a"))} */}

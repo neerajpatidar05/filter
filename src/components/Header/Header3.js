@@ -197,15 +197,7 @@ const Header3 = () => {
           sx={{ background: "white", color: "#7A93B4", boxShadow: "none" }}
         >
           <Toolbar>
-            <Box
-              size="large"
-              edge="start"
-              color="inherit"
-              // aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <CardMedia component="img" height="50" image={dexitLogo} />
-            </Box>
+            
             <Box sx={{ flexGrow: 1 }} />
             <Box
               sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}

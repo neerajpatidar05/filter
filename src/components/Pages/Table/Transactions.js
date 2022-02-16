@@ -129,7 +129,7 @@ export default function Transactions() {
       let getBlockDetails = await web3.eth.getBlock(292481);
     //   console.log("getBlockDetails", getBlockDetails);
       for (let k = 0; k < getBlockDetails.transactions.length; k++) {
-        let getTransactionDetails = await web3.eth.getTransaction(
+        let getTransactionDetails = await web3.eth.getTransactionReceipt(
           getBlockDetails.transactions[k]
         );
         bc.push(getTransactionDetails);
@@ -256,11 +256,11 @@ export default function Transactions() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                    <span id="block_number"><Avatar sx={{mr:1}}>Tx</Avatar>{shortenAccountId(row.hash)}</span> 
+                    <span id="block_number"><Avatar sx={{mr:1}}>Tx</Avatar>{shortenAccountId(row.transactionHash)}</span> 
                     </TableCell>
                     <TableCell align="left">{row.blockNumber}</TableCell>
                     <TableCell align="left">{shortenAccountId(row.from)}</TableCell>
-                    <TableCell align="left">{row.to ? row.to : "-"}</TableCell>
+                    <TableCell align="left">{row.to==null ? row.contractAddress : row.to}</TableCell>
                     <TableCell align="left">{shortenAccountId(row.blockHash)}</TableCell>
                   </TableRow>
                 ))}

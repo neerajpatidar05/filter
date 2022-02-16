@@ -21,8 +21,9 @@ import { useState, useEffect } from "react";
 import { Avatar, Button, CircularProgress, Input, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
-import SearchBox from "../../SearchBox";
 import Header3 from "../../Header/Header3";
+import moment  from 'moment'
+import SearchBox from "../Home/SearchBox";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -102,6 +103,7 @@ export default function AllTransactions() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [searchBlock, setSearchBlock] = React.useState(0);
+  const[blockDetailsData,setBlockDetailsData]=React.useState()
 
   // Avoid a layout jump when reaching the last page with empty rows.
 
@@ -116,7 +118,6 @@ export default function AllTransactions() {
   }, [dd]);
 
   const id = setInterval(() => {
-    // console.log("setinterval");
     Init();
   }, 3000);
   
@@ -129,14 +130,20 @@ export default function AllTransactions() {
     // console.log("current block", currentBlock);
     for (let j = currentBlock - 50; j < currentBlock; j++) {
       // let getBlockDetails = await web3.eth.getBlock(j);
-      let getBlockDetails = await web3.eth.getBlock(292481);
-    //   console.log("getBlockDetails", getBlockDetails);
+      // setBlockDetailsData(blockDetailsData)
+      
+      // console.log(getBlockDetails,"dadadaadada")
+      let getBlockDetails = await web3.eth.getBlock(396072);
+        setBlockDetailsData(getBlockDetails)
+      // if(getBlockDetails.transactions.length!=0){
+      //   console.log(getBlockDetails,"detailsssss")
+      //   setBlockDetailsData(getBlockDetails)
+      // }
       for (let k = 0; k < getBlockDetails.transactions.length; k++) {
         let getTransactionDetails = await web3.eth.getTransactionReceipt(
           getBlockDetails.transactions[k]
         );
         bc.push(getTransactionDetails);
-        
       }
     }
     // console.log("updating the collection of transactions");
@@ -203,7 +210,7 @@ export default function AllTransactions() {
 
   return (
     <>
-    <SearchBox />
+    <SearchBox/>
     <Header3 />
       {console.log("Transactions length", dd.length)}
       <div className="container-fluid">
@@ -243,8 +250,9 @@ export default function AllTransactions() {
               <TableRow style={{background:"whitesmoke"}}>
                 <TableCell align="left">Transaction Hash</TableCell>
                 <TableCell align="left">Block</TableCell>
+                {/* <TableCell align="left">Age</TableCell> */}
                 <TableCell align="left">From</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="center"></TableCell>
                 <TableCell align="left">To</TableCell>
                 <TableCell align="left">Block hash</TableCell>
               </TableRow>
@@ -266,9 +274,10 @@ export default function AllTransactions() {
                     {shortenAccountId(row.transactionHash)}
                     </TableCell>
                     <TableCell align="left">{row.blockNumber}</TableCell>
-                    <TableCell align="left">{shortenAccountId(row.from)}</TableCell>
-                    <TableCell align="left"><ArrowCircleRightRoundedIcon/></TableCell>
-                    <TableCell align="left">{row.to==null ? row.contractAddress : row.to}</TableCell>
+                    {/* <TableCell align="left">{blockDetailsData ? moment.unix(blockDetailsData.timestamp).format("YYYY-MM-DD h:mm:ss a") :"-"}</TableCell> */}
+                    <TableCell align="left" >{shortenAccountId(row.from)}</TableCell>
+                    <TableCell align="center" style={{width:40}}><ArrowCircleRightRoundedIcon/></TableCell>
+                    <TableCell align="left">{row.to==null ? shortenAccountId(row.contractAddress) : row.to}</TableCell>
                     <TableCell align="left">{shortenAccountId(row.blockHash)}</TableCell>
                     {/* {console.log(row.contractAddress,"contractAddress")} */}
                   </TableRow>
