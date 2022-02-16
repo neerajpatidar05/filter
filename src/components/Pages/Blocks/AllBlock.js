@@ -220,11 +220,15 @@ export default function Blocks() {
 
   // }
 
+  const handleHome=()=>{
+    navigate('/')
+  }
+
   return (
     <>
     <Grid container>
       <Grid xs={12} md={4}>
-        <img  height={60} width={200} src={dexitLogo} />
+        <img  height={60} width={200} src={dexitLogo} style={{cursor:"pointer"}} onClick={()=>handleHome()}/>
       </Grid>
       
       <Grid xs={12} md={8}>

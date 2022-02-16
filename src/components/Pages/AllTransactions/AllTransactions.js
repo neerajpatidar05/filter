@@ -115,13 +115,13 @@ export default function AllTransactions() {
     Init();
   }, []);
 
-  useEffect(() => {
-      clearInterval(id);
-  }, [dd]);
+  // useEffect(() => {
+  //     clearInterval(id);
+  // }, [dd]);
 
-  const id = setInterval(() => {
-    Init();
-  }, 3000);
+  // const id = setInterval(() => {
+  //   Init();
+  // }, 3000);
   
   async function Init() {
     // console.log("init");
@@ -210,11 +210,15 @@ export default function AllTransactions() {
     navigate("/transactions");
   }
 
+  const handleHome=()=>{
+    navigate('/')
+  }
+
   return (
     <>
   <Grid container>
       <Grid xs={12} md={4}>
-        <img  height={60} width={200} src={dexitLogo} />
+        <img  height={60} width={200} src={dexitLogo} style={{cursor:"pointer"}} onClick={()=>handleHome()}/>
       </Grid>
       
       <Grid xs={12} md={8}>

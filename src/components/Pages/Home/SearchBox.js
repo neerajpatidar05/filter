@@ -1,9 +1,12 @@
 import { SearchOutlined } from '@mui/icons-material'
-import { Box, Button, Grid, TextField } from '@mui/material'
+import { Box, Button, Divider, Grid, IconButton, InputBase, Paper, TextField } from '@mui/material'
 import React,{useState} from 'react'
 import './SearchBox.css'
 import Web3 from "web3";
 import { useNavigate } from "react-router-dom";
+import DirectionsIcon from '@mui/icons-material/Directions';
+import SearchIcon from '@mui/icons-material/Search';
+
 
 
 const SearchBox = () => {
@@ -23,7 +26,7 @@ const SearchBox = () => {
   };
   return (
     <>
-    <div className='search_box_container'>
+    {/* <div className='search_box_container'>
       <Grid container>
         <Grid xs={8} md={10}>
         <TextField
@@ -44,8 +47,31 @@ const SearchBox = () => {
         ></Button>
         </Grid>
       </Grid>
-    </div>
-   
+    </div> */}
+<Grid container>
+  <Grid xs={12} md={11}>
+    <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}
+    >
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search by Block number/Txn Hash"
+        // inputProps={{ 'aria-label': 'search google maps' }}
+        fullWidth
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
+      {/* <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+        <SearchIcon />
+      </IconButton> */}
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
+        <SearchIcon  onClick={() => getBlockDetails()}/>
+      </IconButton>
+    </Paper>
+    </Grid>
+</Grid>
     </>
   )
 }
