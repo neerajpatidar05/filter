@@ -49,7 +49,7 @@ const SearchBox = () => {
       </Grid>
     </div> */}
 <Grid container>
-  <Grid xs={12} md={11}>
+  <Grid xs={12} md={12} sx={{padding:"1% 4%"}}>
     <Paper
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}

@@ -111,18 +111,19 @@ export default function Blocks() {
   const [dd, setdd] = useState([]);
   const [singleBlock, setSingleBlock] = useState();
   const [showDetails, setShowDetails] = useState(false);
+  const[callFunction,setCallFunction]=useState(true)
 
   useEffect(() => {
     Init();
   }, []);
 
-  useEffect(() => {
-    clearInterval(id);
-  }, [dd]);
+  // useEffect(() => {
+  //   clearInterval(id);
+  // }, [dd]);
 
-  const id = setInterval(() => {
-    Init();
-  }, 30000);
+  // const id = setInterval(() => {
+  //   Init();
+  // }, 30000);
 
   async function Init() {
     console.log("called init blocks");
@@ -130,6 +131,8 @@ export default function Blocks() {
     let bc = [];
 
     let currentBlock = await web3.eth.getBlockNumber();
+    setCallFunction(!callFunction)
+
     for (let j = currentBlock - 5; j < currentBlock; j++) {
       let getBlockDetails = await web3.eth.getBlock(j);
       bc.push(getBlockDetails);
@@ -229,7 +232,9 @@ export default function Blocks() {
                         page * rowsPerPage + rowsPerPage
                       )
                     : dd
-                  ).map((row, index) => (
+                  ).slice(0)
+                  .reverse()
+                  .map((row, index) => (
                     <TableRow
                       key={index}
                       sx={{
