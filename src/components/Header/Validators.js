@@ -9,6 +9,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -54,6 +55,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function CustomizedMenus() {
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -63,6 +65,15 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
   };
 
+  const handleRoute = () => {
+    navigate("/validator_leatherboard");
+    handleClose()
+  };
+
+  const handleValidatorInfo = () =>{
+    navigate("/validator_info")
+    handleClose()
+  }
   return (
     <div>
       <Button
@@ -87,11 +98,11 @@ export default function CustomizedMenus() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleRoute} disableRipple>
           Validators Leatherboard
         </MenuItem>
 
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleValidatorInfo} disableRipple>
           View Validators Set Info
         </MenuItem>
       </StyledMenu>

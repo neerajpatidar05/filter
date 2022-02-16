@@ -65,9 +65,6 @@ const Stack = () => {
         // console.log(result)
         setOpenUnStack(false)
     }
-    useEffect(() => {
-        handleValidate();
-    }, [])
 
     const handleValidate = async () => {
         console.log("validator call")
@@ -161,7 +158,7 @@ const Stack = () => {
 
             </div>
 
-            <TransactionTable validatorsDetails={dd}/>
+            // <TransactionTable/>
         </>
     )
 };

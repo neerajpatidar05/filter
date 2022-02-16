@@ -18,12 +18,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import { GifBox } from "@mui/icons-material";
+import metaMaskLogo from "../../Image/metamask.svg";
 
 export default function Header2() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -94,9 +95,9 @@ export default function Header2() {
 
   window.ethereum.on("chainChanged", chainChangedHandler);
 
-  const handleRoute = () => {
-    navigate("/staking");
-  };
+  // const handleRoute = () => {
+  //   navigate("/staking");
+  // };
 
   const handleHome = () => {
     navigate("/");
@@ -155,14 +156,15 @@ export default function Header2() {
         </span>
       </IconButton>
       <MenuItem>
-        <Button
-          id="demo-customized-button"
-          color="error"
-          variant="contained"
+        <IconButton
+          size="large"
+          aria-label="show more"
+          aria-haspopup="true"
           onClick={connectWalletHandler}
+          color="inherit"
         >
-          Connect
-        </Button>
+          <CardMedia component="img" height="50" image={metaMaskLogo} />
+        </IconButton>
       </MenuItem>
 
       <MenuItem>
@@ -179,7 +181,7 @@ export default function Header2() {
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
-          onClick={() => handleRoute()}
+          // onClick={() => handleRoute()}
         >
           <Validators />
         </IconButton>
@@ -187,9 +189,13 @@ export default function Header2() {
     </Menu>
   );
 
-console.log(location.pathname);
+  console.log(location.pathname);
 
-if(location.pathname === "/allblocks" || location.pathname === "/alltransactions") return null
+  if (
+    location.pathname === "/allblocks" ||
+    location.pathname === "/alltransactions"
+  )
+    return null;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -246,17 +252,26 @@ if(location.pathname === "/allblocks" || location.pathname === "/alltransactions
             >
               <Blockchains />
             </Box>
-            <Box onClick={() => handleRoute()}>
+            <Box>
               <Validators />
             </Box>
-            <Button
+            {/*<Button
               id="demo-customized-button"
               color="error"
               variant="contained"
               onClick={connectWalletHandler}
             >
               Connect
-            </Button>
+            </Button>*/}
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-haspopup="true"
+              onClick={connectWalletHandler}
+              color="inherit"
+            >
+              <CardMedia component="img" height="50" image={metaMaskLogo} />
+            </IconButton>
           </Box>
           <Box></Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
