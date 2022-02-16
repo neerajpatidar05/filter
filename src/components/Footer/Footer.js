@@ -45,7 +45,7 @@ const Footer = () => {
             <Grid sx={{ p: [3, 3, 10, 15, 15] }}>
               <Typography>Products</Typography>
               <hr />
-              <Typography>EtherScan</Typography>
+              <Typography>Dexit finance</Typography>
               <Typography>BlockScan</Typography>
               <Typography>PolygonScan</Typography>
             </Grid>

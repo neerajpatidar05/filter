@@ -133,8 +133,14 @@ const Header3 = () => {
           color="inherit"
           onClick={() => handleHome()}
         >
-          <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
-            Home
+          <span
+            style={{
+              fontSize: "13px",
+              textTransform: "uppercase",
+            
+            }}
+          >
+            Blocks
           </span>
         </IconButton>
       </MenuItem>
