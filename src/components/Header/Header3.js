@@ -217,7 +217,7 @@ const Header3 = () => {
               disableElevation
               sx={{ border: "none", color: "#7A93B4" }}
             >
-              <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "14px", textTransform: "none" }}>
                 Home
               </span>
             </Button>
@@ -228,7 +228,7 @@ const Header3 = () => {
             sx={{ border: "none", color: "#7A93B4" }}
             onClick={handleStack}
           >
-            <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "14px", textTransform: "none" }}>
               Stack
             </span>
           </Button>
@@ -241,9 +241,9 @@ const Header3 = () => {
             >
               <span
                 style={{
-                  fontSize: "13px",
-                  textTransform: "uppercase",
-                  marginLeft: "12px",
+                  fontSize: "14px",
+                  textTransform: "none",
+                  // marginLeft: "12px",
                 }}
               >
                 Blocks

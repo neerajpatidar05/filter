@@ -46,8 +46,8 @@ const Footer = () => {
               <Typography>Products</Typography>
               <hr />
               <Typography>Dexit finance</Typography>
-              <Typography>BlockScan</Typography>
-              <Typography>PolygonScan</Typography>
+              {/* <Typography>BlockScan</Typography> */}
+              {/* <Typography>PolygonScan</Typography> */}
             </Grid>
           </Grid>
         </Paper>

@@ -5,8 +5,10 @@ import Transactions from "../Table/Transactions";
 import Search from "./Search";
 import DetailsBox from "../../DetailsBox/DetailsBox";
 import Footer from "../../Footer/Footer";
+import Connections from '../Connections/Connection'
 
 const Home = () => {
+
   return (
     <>
       <Grid container>

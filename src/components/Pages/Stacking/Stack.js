@@ -35,6 +35,7 @@ const Stack = () => {
     const [stakerAmount2, setStakerAmount2] = useState('')
     const [validatorName, setValidatorName] = useState('')
     const [validatorDescription, setValidatorDescription] = useState('')
+    const[validatorListData,setValidatorListData]=useState()
 
     const [dd, setdd] = useState([])
     const handleOpenUnStack = () => setOpenUnStack(true);
@@ -42,13 +43,63 @@ const Stack = () => {
 
     const handleOpenStack = () => setOpenStack(true);
     const handleCloseStack = () => setOpenStack(false);
+    console.log(Connection,"connections")
+    
+    useEffect(() => {
+        // handleValidate()
+        getBalanceData()
+    }, [])
+
+    const getBalanceData=async()=>{
+        let dataget=await Connection.stakeValidatorBalance("0xE0C1C57FeCaEfFf18874a1872F1FA0A30F1D1f4A")
+        // let advalid=await Connection.stakeValidators()
+        // console.log(advalid,"advalid")
+        let contact=await Connection.getContractBalance()
+        let list=await Connection.getValidatorsList()
+
+        handleValidatorListDetails(list)
+        setValidatorListData(list)
+    // console.log(dataget.toString(),"connections")
+    // console.log(contact.toString(),"contract")
+    // console.log(list,"list")
+    // console.log(result,"list")
+    }
+
+    const getAmount= async(address)=>{
+        let result= await Connection.stakeValidatorBalance(address)
+        let contact=await Connection.getContractBalance()
+        let contractAmount=contact.toString()
+        let amount=result.toString()
+        const amountContract=contractAmount.slice(0,amount.length-18)
+        const totalamount=amount.slice(0,amount.length-18)
+        console.log(totalamount,"amount",amountContract)
+        const resultData=(amountContract/totalamount)*100
+        console.log(resultData,"resultData")
+        return amount
+        
+    }
+
+    const handleValidatorListDetails=(list)=>{
+        if(list){
+            return list.map(async(item,index)=>{
+                return(
+                    <>
+                    {console.log(await getAmount(item[0]))}
+                    {console.log(await Connection.stakeValidatorBalance(item[0]))}
+                    {console.log(item[0],"item")}
+                    </>
+                )
+            })
+        }
+    }
+
 
     const handleStakeSubmit = async () => {
         // const callFunctions=async()=>{
         // console.log("stakeamount", stakerAmount)
         let result = await Connection.stakeDxt({ value: stakerAmount });
         setOpenStack(false)
-
+        console.log(result,"results")
         let abc = await result.wait();
         if (abc) {
             // let validate= await Connection.setMaxValidators()
@@ -62,7 +113,7 @@ const Stack = () => {
 
     const handleunStake = async () => {
         let result = await Connection.withdrawStake(stakerAmount2);
-        // console.log(result)
+        console.log(result)
         setOpenUnStack(false)
     }
 
@@ -75,9 +126,9 @@ const Stack = () => {
         setdd(ab)
     }
 
-    useEffect(() => {
-        handleValidate()
-    }, [])
+    
+
+    // console.log(dd,"list of va,idators")
 
     function createData(name, calories, fat, carbs, protein) {
         return { name, calories, fat, carbs, protein };

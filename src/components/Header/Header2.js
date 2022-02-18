@@ -19,9 +19,11 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import { GifBox } from "@mui/icons-material";
 import metaMaskLogo from "../../Image/metamask.svg";
+import Web3 from "web3";
 
 export default function Header2() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const web3 = new Web3();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,9 +70,11 @@ export default function Header2() {
     }
   };
 
+
   // update account, will cause component re-render
   const accountChangedHandler = (newAccount) => {
     setDefaultAccount(newAccount);
+    console.log(newAccount,"newAccount")
     getAccountBalance(newAccount.toString());
   };
 
@@ -89,6 +93,8 @@ export default function Header2() {
     // reload the page to avoid any errors with chain change mid use of application
     window.location.reload();
   };
+
+
 
   // listen for account changes
   window.ethereum.on("accountsChanged", accountChangedHandler);
@@ -227,7 +233,7 @@ export default function Header2() {
               disableElevation
               sx={{ border: "none", color: "#7A93B4" }}
             >
-              <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "14px", textTransform: "none" }}>
                 Home
               </span>
             </Button>
@@ -238,22 +244,22 @@ export default function Header2() {
               sx={{ border: "none", color: "#7A93B4" }}
               onClick={handleStack}
             >
-              <span style={{ fontSize: "13px", textTransform: "uppercase" }}>
+              <span style={{ fontSize: "14px" ,textTransform: "none"}}>
                 Stack
               </span>
             </Button>
 
             <Button
               id="demo-customized-button"
-              onClick={() => handleBlock()}
+              // onClick={() => handleBlock()}
               disableElevation
               sx={{ border: "none", color: "#7A93B4" }}
             >
               <span
                 style={{
-                  fontSize: "13px",
-                  textTransform: "uppercase",
-                  marginLeft: "12px",
+                  fontSize: "14px",
+                  // marginLeft: "12px",
+                  textTransform: "none"
                 }}
               >
                 Blocks
@@ -264,10 +270,11 @@ export default function Header2() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              sx={{ml:1}}
             >
               <Blockchains />
             </Box>
-            <Box>
+            <Box sx={{ml:1}}>
               <Validators />
             </Box>
             {/*<Button

@@ -76,7 +76,7 @@ export default function CustomizedMenus() {
         endIcon={<KeyboardArrowDownIcon />}
         sx={{border:"none",color:"#7A93B4"}}
       >
-        Blockchains
+      <span style={{textTransform:"none"}}>Blockchains</span>
       </Button>
       <StyledMenu
         id="demo-customized-menu"

@@ -21,7 +21,7 @@ import Web3 from "web3";
 import { useState, useEffect } from "react";
 import { styled } from '@mui/system';
 import dexitLogo from "../../../Image/dexit1.png";
-
+import Connections from '../Connections/Connection';
 
 import {
   Avatar,
@@ -120,6 +120,7 @@ const columns = [
 export default function Blocks() {
   const web3 = new Web3();
   web3.setProvider("https://testnet.dexit.network");
+  // const provider = new ethers.providers.Web3Provider("https://testnet.dexit.network")
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
@@ -139,6 +140,19 @@ export default function Blocks() {
   const id = setInterval(() => {
     Init();
   }, 30000);
+
+
+// useEffect(()=>{
+//   console.log("called functions")
+//   getAddressDara()
+// },[])
+
+//   const getAddressDara=async()=>{
+//     let blockAddress=await Connections.getAddress();
+//     // let transactionCountData=await Connections.getTransactionCount("0xb710C0779AFe841c6dF6e254877A11f1beEe302D");
+//     console.log(blockAddress,"dataa")
+//   }
+
 
   async function Init() {
     console.log("called init blocks");
