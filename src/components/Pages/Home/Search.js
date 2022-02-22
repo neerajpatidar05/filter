@@ -1,10 +1,13 @@
-import { Button, Divider, Grid, IconButton, InputBase, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Button, Divider, FormControl, Grid, IconButton, InputBase, InputLabel, MenuItem, Paper, Select, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import "./Search.css";
 import { SearchOutlined } from "@mui/icons-material";
 import Web3 from "web3";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+
+
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -20,7 +23,37 @@ const Search = () => {
     } else if (searchInput.length > 10) {
       navigate("/searchhash", { state: { details: searchInput } });
     }
+// if(searchInput.value='All Filter'){
+//   let blockDetails = await web3.eth.getBlock(searchInput);
+//     console.log(blockDetails, "blockDetails");
+//    // navigate("/searchdetails", { state: { blockDetails: blockDetails } });
+
+// }
+// else if(searchInput.value='Block')
+//   navigate("/searchdetails", { state: { blockDetails: blockDetails } });
+
+// else if(searchInput.value='Transaction Hash')
+//   navigate("/searchhash", { state: { details: searchInput } });
+   };
+
+  const [Age, setAge] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+ 
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+   
+    
 
   return (
     <>
@@ -30,11 +63,29 @@ const Search = () => {
       <Typography sx={{ color: "#D6DA3C", fontSize: "1.5rem", pb: 1 }}>
             Dexit Explorer
         </Typography>
-    <Paper
+
+      <Paper
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}
     >
-      
+       {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
+        <MenuIcon />
+      </IconButton> */}
+      <FormControl sx={{ m: 1, minWidth: 120,background:"white" }}>
+    
+         <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={Age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>All Filter</MenuItem>
+          <MenuItem value={20}>Block</MenuItem>
+          <MenuItem value={30}>Transaction Hash</MenuItem>
+        </Select>
+        </FormControl>
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search by Block number/Txn Hash"
@@ -43,6 +94,7 @@ const Search = () => {
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />
+      
       {/* <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
       </IconButton> */}
@@ -50,9 +102,11 @@ const Search = () => {
       <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
         <SearchIcon  onClick={() => getBlockDetails()}/>
       </IconButton>
+      
     </Paper>
     </Grid>
     </Grid>
+    
     </div>
     </>
     // <div className="parent_div">
